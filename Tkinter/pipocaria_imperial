@@ -1,0 +1,17 @@
+Projeto Tkinter
+
+instalar na ysa:
+	installar o google drive
+	installar shutil, os, datetime
+
+comando para tornar executavel com bibliotecas dependentes:
+	pyinstaller -F --collect-submodulos "Pastas" --hidden-import "Arquivos" Arquivo_principal.py
+		
+Sistema:
+1 - Buscar solução para separar vinculo de telas no treeview do relatorio e cadastro.
+2 - Organizar as informações sobre cada função, explicando a utilidade e os possiveis problemas.
+
+Projeto:
+
+1 - Janela de Relatorios:
+	1.7 - Possibilidade de Imprimir Relatorios anual. 
