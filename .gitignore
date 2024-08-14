@@ -1,0 +1,49 @@
+# Ignorar diretórios e arquivos específicos
+
+LOL/leagueoflegends.txt
+LOL/nomes.txt
+Projeto_Tkinter/pipocaria_imperial
+
+# Extras------------------------
+
+	# Ignorar binários
+
+# Binários e Arquivos Executáveis
+*.exe
+*.o
+*.obj
+
+# Script e Configurações
+*.ps1
+*.psm1
+*.env
+
+# Documentos e Arquivos de Dados
+*.xlsx
+*.pdf
+*.log
+*.db
+
+# Configurações de IDE e Ferramentas
+*.vscode
+
+# Arquivos de Projeto Específico
+*.zip*
+*.ui
+*.yml
+
+# Diretórios Locais
+.local/
+
+	# Diretórios
+
+# Ignorar diretórios de build
+/build/
+out/
+test.*
+teste.*
+venv/
+
+# Ignorar diretórios de cache
+__pycache__/
+
