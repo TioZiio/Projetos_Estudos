@@ -19,6 +19,7 @@ Projeto_Tkinter/pipocaria_imperial
 *.env
 
 # Documentos e Arquivos de Dados
+*.txt
 *.xlsx
 *.pdf
 *.log
