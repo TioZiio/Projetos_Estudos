@@ -4,15 +4,17 @@ from View import Create_visual
 from Model import Model_Func
 import pandas as pd
 import matplotlib.pyplot as plt
-import locale
 from Control import Control_Principal
+from pathlib import Path
+from PIL import Image
+import os
 
 class Relatorios():
     def __init__(self, root):
         self.root_temp = root
         self.banco = Model_Func.Func_db()
         self.create = Create_visual.Create(self.root_temp)
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+        self.img = Path(__file__).parent.parent / 'grafico.png'
         
     def Janela_relatorio(self):
         self.root_relatorio = tk.Toplevel(self.root_temp)
@@ -83,7 +85,13 @@ class Relatorios():
         plt.xlabel('Clientes')
         plt.ylabel('Compras do Cliente (R$)')
         plt.title('TOP 10 VENDAS POR CLIENTE')
-        plt.show()
+        plt.savefig("grafico.png")
+        self.open_png()
+
+    def open_png(self):
+        img = Image.open(self.img)
+        img.show()
+        os.remove(self.img)
 
     def Infos_Relatorios_investimento(self):
         self.caixa1 = self.create.Func_Criar_Caixas(
@@ -107,6 +115,7 @@ class Relatorios():
             self.create.Func_Criar_Lb(*info[0])
             entry = self.create.Func_Criar_Entry(self.caixa1, *info[1])
             self.quant_entrys.append(entry)
+        self.val_quant_entrys = [self.quant_entrys, 'investimento']
 
     def Processamento_dados_investimento(self):
         dados = self.controle.Puxa_dados()
@@ -133,14 +142,10 @@ class Relatorios():
         for info in botoes_info:
             self.create.Func_Criar_Bt(*info)
 
-    def formatar_em_real(self, valor):
-        return locale.currency(valor, grouping=True)
-
     def Atualiza_dados(self):
         df_dados = pd.DataFrame(
             self.banco.Func_Select_Lista(typTela='investimento'), columns=['Cod.Produto','Produto', 'Valor']
         )
-        df_dados['Valor'] = df_dados['Valor'].apply(self.formatar_em_real)
         self.textos = tk.Text(self.caixa2)
         self.textos.insert(tk.END, df_dados.to_string(index=False, justify='center'))
         self.textos.pack()
@@ -173,7 +178,9 @@ class Relatorios():
                 self.Infos_Relatorios_mensal()
             case 'investimento':
                 self.Infos_Relatorios_investimento()
-                self.controle = Control_Principal.Principal(root=self.root_relatorio, entrys=self.quant_entrys)
+                self.controle = Control_Principal.Principal(
+                    root=self.root_relatorio, entrys=self.val_quant_entrys
+                )
                 self.botoes_investimento()
                 self.Atualiza_dados()
             case 'clientes_novos':

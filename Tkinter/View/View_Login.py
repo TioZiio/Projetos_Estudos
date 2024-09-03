@@ -29,6 +29,7 @@ class Infos_Login():
         for info in entradas_info:
             entry = self.create.Func_Criar_Entry(self.caixa0, *info)
             self.quant_entrys_Login.append(entry)
+        self.val_quant_entrys = [self.quant_entrys_Login, 'login']
 
     def Info_Btoes_Login(self):
         # Informações para criar os Botões da Tela de Login.
@@ -39,6 +40,6 @@ class Infos_Login():
     def Organiza_Funcs_Login(self):
         self.Tela_Login()
         self.Info_Entrys_Login()
-        self.controle = Control_Principal.Principal(self.root, entrys=self.quant_entrys_Login)
+        self.controle = Control_Principal.Principal(self.root, entrys=self.val_quant_entrys)
         self.Info_Btoes_Login()
         self.Info_Labls_Login()

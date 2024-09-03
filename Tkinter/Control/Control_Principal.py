@@ -14,7 +14,7 @@ class Principal():
         self.cadastro = View_Cadastro.Infos_Cadastro(self.root)
         self.relatorios = View_Relatorios.Relatorios(self.root)
         self.complementar = Control_Complementar.Funcs_Complementar(self.root)
-        self.entrys = entrys
+        self.entrys, self.val = entrys
 
     def Puxa_dados(self):
         dados = {}
@@ -30,21 +30,23 @@ class Principal():
                 'produto': self.entrys[1].get().lower().strip(),
                 'valor': self.entrys[2].get().lower().strip()
                 }
-            case 4:
-                dados = {
-                    'Cod Venda': self.entrys[0].get().upper().strip(),
-                    'Cod Produto': self.entrys[1].get().upper().strip(),
-                    'Valor' : self.entrys[2].get().upper().strip(),
-                    "Cod Cliente": self.entrys[3].get().upper().strip()
-                }
             case 5:
-                dados = {
-                    'codigo': self.entrys[0].get().upper().strip(),
-                    'nome': self.entrys[1].get().upper().strip(),
-                    'telefone': self.entrys[2].get().upper().strip(),
-                    'endereco': self.entrys[3].get().upper().strip(),
-                    'cidade': self.entrys[4].get().upper().strip()
-                }
+                if self.val == 'vendas':
+                    dados = {
+                        'Cod Venda': self.entrys[0].get().upper().strip(),
+                        'Cod Produto': self.entrys[1].get().upper().strip(),
+                        'Valor' : self.entrys[2].get().upper().strip(),
+                        "Cod Cliente": self.entrys[3].get().upper().strip(),
+                        "Data": self.entrys[4].get().upper().strip()
+                    }
+                else:
+                    dados = {
+                        'codigo': self.entrys[0].get().upper().strip(),
+                        'nome': self.entrys[1].get().upper().strip(),
+                        'telefone': self.entrys[2].get().upper().strip(),
+                        'endereco': self.entrys[3].get().upper().strip(),
+                        'cidade': self.entrys[4].get().upper().strip()
+                    }
         return dados
 
     def Func_Validar_user(self):
@@ -129,6 +131,7 @@ class Principal():
     def Processamento_dados_venda(self):
         try:    
             dados_vendas = self.Puxa_dados()
+            print(dados_vendas)
             if dados_vendas['Valor'] == '':
                 dados_vendas['Valor'] = '0'
             if ',' in dados_vendas['Valor']:
@@ -142,7 +145,16 @@ class Principal():
             nome = self.banco.Puxa_nome(dados_vendas['Cod Cliente'])
             if nome != 'nulo':
                 dados_vendas['Nome Cliente'] = nome
-            dados_vendas['Data'] = self.complementar.Data()
+            if dados_vendas['Data'] == '':
+                dados_vendas['Data'] = self.complementar.Data()
+            else:
+                if '/' in dados_vendas['Data']:
+                    dados_vendas['Data'] = dados_vendas['Data'].replace('/', '-')
+                    print('Log')
+                if len(dados_vendas['Data']) == 5:
+                    temp = dados_vendas['Data']
+                    dados_vendas['Data'] = temp+'-2024'
+            print(dados_vendas['Data'])                
             return [True, dados_vendas]
         except Exception as err:
             print(f'Log: erro no Processamento de dados\n{err}')

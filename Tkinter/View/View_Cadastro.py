@@ -64,6 +64,7 @@ class Infos_Cadastro():
         for info in entradas_info:
             entry = self.create.Func_Criar_Entry(self.caixa1, *info)
             self.quant_entrys.append(entry)
+        self.val_quant_entrys = [self.quant_entrys, 'cadastro']
 
     def verificador_treeview(self, typFrame):
         valores = ['','2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
@@ -109,7 +110,7 @@ class Infos_Cadastro():
         self.Tela_Cadastro(self.root_cadastro)
         self.Info_Labls_Cadastro()
         self.Info_Entrys_Cadastro()
-        self.controle = Control_Principal.Principal(self.root_cadastro, entrys=self.quant_entrys)
+        self.controle = Control_Principal.Principal(self.root_cadastro, entrys=self.val_quant_entrys)
         self.Info_Btoes_Cadastro()
         self.controle.Func_Criar_Treeview()
         self.Info_Cabecario_Cadastro()

@@ -33,6 +33,7 @@ class Infos_Vendas():
             (self.caixa1, "Cod. Produto", 0.02, 0.3, 0.13),
             (self.caixa1, "Valor", 0.25, 0.3),
             (self.caixa1, "Cod. Cliente", 0.4, 0.3, 0.13),
+            (self.caixa1, "Data", 0.6, 0.3),
             (self.caixa3, "Pacote Mini 25gr {:_>11}".format("001"), 0, 0.05),
             (self.caixa3, "Pacote Cone 45gr {:_>10}".format("002"), 0, 0.2),
             (self.caixa3, "Pacote Pequeno 100gr {:_>6}".format("003"), 0, 0.35),
@@ -54,11 +55,13 @@ class Infos_Vendas():
             (0.02, 0.45, 0.15, 0.15),
             (0.2, 0.45, 0.15, 0.15),
             (0.38, 0.45, 0.15, 0.15),
+            (0.56, 0.45, 0.15, 0.15),
         ]
         self.quant_entrys = []
         for info in entradas_info:
             entry = self.create.Func_Criar_Entry(self.caixa1, *info)
             self.quant_entrys.append(entry)
+        self.val_quant_entrys = [self.quant_entrys, 'vendas']
 
     def Info_Btoes_Vendas(self):
         botoes_info = [
@@ -137,7 +140,7 @@ class Infos_Vendas():
         self.Tela_Vendas()
         self.Info_Labls_Vendas()
         self.Info_Entrys_Vendas()
-        self.controle = Control_Principal.Principal(self.root_vendas, entrys=self.quant_entrys)
+        self.controle = Control_Principal.Principal(self.root_vendas, entrys=self.val_quant_entrys)
         self.Info_Btoes_Vendas()
         self.controle.Func_Criar_Treeview(typTela='vendas')
         self.Info_Cabecario_Vendas()
