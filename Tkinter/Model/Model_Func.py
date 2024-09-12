@@ -31,11 +31,14 @@ class Func_db():
                 variavel_local = [n for n in dados]
                 return variavel_local
             case 'investimento':
-                self.cursor.execute("""
-                    SELECT * FROM investimentos 
+                query = """
+                    SELECT * FROM investimentos
+                    WHERE data LIKE ?
                     UNION ALL 
-                    SELECT '->', 'Total', SUM(valor) 
-                    FROM investimentos;""")
+                    SELECT '->', 'Total', SUM(valor), 'NULL'
+                    FROM investimentos
+                    WHERE data LIKE ?;"""
+                self.cursor.execute(query, (*mes,))
                 dados = self.cursor.fetchall()
                 return dados
             case _:
@@ -160,8 +163,8 @@ class Func_db():
 
     def Adicionar_investimento(self, dados):
         try:
-            query = """INSERT INTO investimentos (produto, valor) VALUES (?,?);"""
-            valores = (dados['produto'], dados['valor'])
+            query = """INSERT INTO investimentos (produto, valor, data) VALUES (?,?,?);"""
+            valores = (dados['produto'], dados['valor'], dados['data'])
             self.Organiza_query_db(query, parametros=valores, typTela='relatorio')
         except Exception as erro:
             print(f'Erro add Relatorio: {erro}')

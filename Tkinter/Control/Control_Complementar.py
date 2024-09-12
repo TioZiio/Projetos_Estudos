@@ -1,4 +1,3 @@
-from datetime import datetime
 import tkinter as tk
 from tkinter import messagebox
 from View import View_Relatorios
@@ -12,10 +11,6 @@ class Funcs_Complementar():
     def Transform_frames(self, frame):
         frame = self.root_complementar.nametowidget(frame)
         return frame
-
-    def Data(self):
-        data_atual = datetime.now().date()
-        return data_atual.strftime('%d-%m-%Y')
 
     def Janela_mensagem_erro(self, mensagem='Cliente ou produto não cadastrado'):
         messagebox.showerror('Erro', mensagem)

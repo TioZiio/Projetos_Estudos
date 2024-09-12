@@ -4,8 +4,9 @@ from View import Create_visual
 from Model import Model_Func
 import pandas as pd
 import matplotlib.pyplot as plt
-from Control import Control_Principal
+from Control import Control_Principal, Control_Complementar
 from pathlib import Path
+from datetime import datetime
 from PIL import Image
 import os
 
@@ -126,6 +127,7 @@ class Relatorios():
                 if ',' in dados['valor']:
                     alt = float(dados['valor'].replace(',', '.').strip())
                     dados['valor'] = alt
+                dados['data'] = self.Data()
                 self.controle.Limpar_entrys()
                 return dados
         else:
@@ -143,12 +145,18 @@ class Relatorios():
             self.create.Func_Criar_Bt(*info)
 
     def Atualiza_dados(self):
+        mes_atual = (f'%{self.Data()[3:5]}%',f'%{self.Data()[3:5]}%')
         df_dados = pd.DataFrame(
-            self.banco.Func_Select_Lista(typTela='investimento'), columns=['Cod.Produto','Produto', 'Valor']
+            self.banco.Func_Select_Lista(typTela='investimento', mes=mes_atual), columns=['Cod.Produto','Produto', 'Valor', 'Data']
         )
+        df_dados = df_dados.replace('NULL',self.Data()[3:])
         self.textos = tk.Text(self.caixa2)
         self.textos.insert(tk.END, df_dados.to_string(index=False, justify='center'))
         self.textos.pack()
+
+    def Data(self):
+        data_atual = datetime.now().date()
+        return data_atual.strftime('%d-%m-%Y')
 
     def Atualiza_texto(self):
         self.textos.destroy()

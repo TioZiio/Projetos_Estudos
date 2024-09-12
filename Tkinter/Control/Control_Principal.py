@@ -131,7 +131,6 @@ class Principal():
     def Processamento_dados_venda(self):
         try:    
             dados_vendas = self.Puxa_dados()
-            print(dados_vendas)
             if dados_vendas['Valor'] == '':
                 dados_vendas['Valor'] = '0'
             if ',' in dados_vendas['Valor']:
@@ -146,15 +145,13 @@ class Principal():
             if nome != 'nulo':
                 dados_vendas['Nome Cliente'] = nome
             if dados_vendas['Data'] == '':
-                dados_vendas['Data'] = self.complementar.Data()
+                dados_vendas['Data'] = self.relatorios.Data()
             else:
                 if '/' in dados_vendas['Data']:
                     dados_vendas['Data'] = dados_vendas['Data'].replace('/', '-')
-                    print('Log')
                 if len(dados_vendas['Data']) == 5:
                     temp = dados_vendas['Data']
-                    dados_vendas['Data'] = temp+'-2024'
-            print(dados_vendas['Data'])                
+                    dados_vendas['Data'] = temp+'-2024'               
             return [True, dados_vendas]
         except Exception as err:
             print(f'Log: erro no Processamento de dados\n{err}')
