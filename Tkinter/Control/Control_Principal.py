@@ -147,11 +147,16 @@ class Principal():
             if dados_vendas['Data'] == '':
                 dados_vendas['Data'] = self.relatorios.Data()
             else:
+                if len(dados_vendas['Data']) <= 4:
+                    return [False, 0]
                 if '/' in dados_vendas['Data']:
                     dados_vendas['Data'] = dados_vendas['Data'].replace('/', '-')
+                if len(dados_vendas['Data']) >= 6:
+                    return [False, 0]
                 if len(dados_vendas['Data']) == 5:
                     temp = dados_vendas['Data']
-                    dados_vendas['Data'] = temp+'-2024'               
+                    dados_vendas['Data'] = temp+'-2024'
+            print(dados_vendas['Data'])
             return [True, dados_vendas]
         except Exception as err:
             print(f'Log: erro no Processamento de dados\n{err}')

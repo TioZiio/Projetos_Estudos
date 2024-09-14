@@ -56,7 +56,8 @@ class Main_db():
             CREATE TABLE IF NOT EXISTS investimentos(
                 codigo_relatorio INTEGER PRIMARY KEY AUTOINCREMENT,
                 produto CHAR(30)NOT NULL,
-                valor INTEGER
+                valor INTEGER,
+                data TIMESTAMP
             );""")
         conn.commit()
 

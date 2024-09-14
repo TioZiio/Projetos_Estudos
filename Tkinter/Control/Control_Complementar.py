@@ -12,7 +12,7 @@ class Funcs_Complementar():
         frame = self.root_complementar.nametowidget(frame)
         return frame
 
-    def Janela_mensagem_erro(self, mensagem='Cliente ou produto não cadastrado'):
+    def Janela_mensagem_erro(self, mensagem='Erro de digitação durante o cadastro da venda ou cliente'):
         messagebox.showerror('Erro', mensagem)
 
     def ToolBar(self):
