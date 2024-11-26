@@ -5,5 +5,4 @@ Aqui terá projetos novos e antigos, para que seja percebido a evolução durant
 Objetivos:
 
 1. Alcançar 10 projetos;
-2. Alcançar 5 sistemas Desktop/Web/Infra;
-3. Conseguir um Projeto Freelancer;
+2. Conseguir um Projeto Freelancer;
